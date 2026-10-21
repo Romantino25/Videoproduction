@@ -7,4 +7,4 @@ Thumbs.db
 node_modules/
 *.bak
 *.tmp
-photo_original size/
+photo_original_size/
