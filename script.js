@@ -321,6 +321,27 @@ Description: ${description}`;
     }
   });
 
+  // Billboard — click-to-play YouTube embed facade
+  document.addEventListener('DOMContentLoaded', function() {
+    const frame = document.querySelector('#billboard-video');
+    if (!frame) return;
+    const playBtn = frame.querySelector('.billboard-play');
+    const videoId = frame.getAttribute('data-youtube-id');
+    if (!playBtn || !videoId) return;
+
+    playBtn.addEventListener('click', function() {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      iframe.title = 'Intro Reel';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'billboard-iframe';
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+    });
+  });
+
   // Lightbox — fullscreen photo viewer for series-grid images
   // Each .series-grid is its own gallery — prev/next never cross into another series.
   document.addEventListener('DOMContentLoaded', function() {
