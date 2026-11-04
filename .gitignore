@@ -8,3 +8,4 @@ node_modules/
 *.bak
 *.tmp
 photo_original_size/
+video/walk
