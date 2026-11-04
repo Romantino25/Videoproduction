@@ -342,6 +342,87 @@ Description: ${description}`;
     });
   });
 
+  // Video cards — click-to-play facade (YouTube link or local mp4)
+  document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.video-card');
+    if (cards.length === 0) return;
+
+    function parseYouTubeId(url) {
+      if (!url) return null;
+      const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/))([A-Za-z0-9_-]{11})/);
+      return m ? m[1] : null;
+    }
+
+    cards.forEach(function(card) {
+      const url = (card.dataset.url || '').trim();
+      const mp4 = (card.dataset.mp4 || '').trim();
+      const title = (card.dataset.title || '').trim();
+      const ytId = parseYouTubeId(url);
+
+      // Nothing filled in yet -> show an empty slot instead of a broken card
+      if (!ytId && !mp4) {
+        card.classList.add('is-empty');
+        card.innerHTML = '<span class="video-card-empty-label">Add video link</span>';
+        return;
+      }
+
+      const customPoster = (card.dataset.poster || '').trim();
+      const poster = document.createElement('img');
+      poster.className = 'video-card-poster';
+      poster.alt = title || 'Video cover';
+      poster.loading = 'lazy';
+      if (customPoster) {
+        poster.src = customPoster;
+      } else if (ytId) {
+        // maxres is sharper but doesn't exist for every video -> fall back to hqdefault
+        poster.src = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
+        poster.addEventListener('error', function() {
+          poster.src = 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg';
+        }, { once: true });
+        poster.addEventListener('load', function() {
+          if (poster.naturalWidth <= 120) poster.src = 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg';
+        });
+      }
+
+      const playBtn = document.createElement('button');
+      playBtn.type = 'button';
+      playBtn.className = 'video-card-play';
+      playBtn.setAttribute('aria-label', 'Play ' + (title || 'video'));
+      playBtn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
+
+      card.innerHTML = '';
+      card.appendChild(poster);
+      card.appendChild(playBtn);
+      if (title) {
+        const t = document.createElement('span');
+        t.className = 'video-card-title';
+        t.textContent = title;
+        card.appendChild(t);
+      }
+
+      playBtn.addEventListener('click', function() {
+        card.innerHTML = '';
+        if (mp4) {
+          const v = document.createElement('video');
+          v.src = mp4;
+          v.controls = true;
+          v.autoplay = true;
+          v.playsInline = true;
+          if (customPoster) v.poster = customPoster;
+          card.appendChild(v);
+        } else {
+          const iframe = document.createElement('iframe');
+          iframe.src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0&playsinline=1';
+          iframe.title = title || 'Video';
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+          iframe.allowFullscreen = true;
+          card.appendChild(iframe);
+        }
+      });
+    });
+  });
+
   // Lightbox — fullscreen photo viewer for series-grid images
   // Each .series-grid is its own gallery — prev/next never cross into another series.
   document.addEventListener('DOMContentLoaded', function() {

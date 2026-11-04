@@ -56,14 +56,81 @@
       </div>
     </section>
 
-    <section class="section reveal-on-scroll">
+    <!-- COVERS (3 columns) -->
+    <section id="covers" class="section reveal-on-scroll">
       <div class="container">
-        <div class="work-grid">
-          <div class="work-item"><img src="provideo.jpg" alt="Music video production" loading="lazy" /><span class="work-caption">Music Videos</span></div>
-          <div class="work-item"><img src="weeding.jpg" alt="Event coverage" loading="lazy" /><span class="work-caption">Events</span></div>
-          <div class="work-item"><img src="bigtourLA.jpg" alt="Brand content" loading="lazy" /><span class="work-caption">Brand Content</span></div>
+        <div class="work-grid ">
+          <a class="work-item" href="#v-music"><img src="video/previewvideo/musician.png" alt="Music video production" loading="lazy" /><span class="work-caption">Music Videos</span></a>
+          <a class="work-item" href="#v-reels"><img src="video/previewvideo/reels.png" alt="Reels" loading="lazy" /><span class="work-caption">Reels</span></a>
+          <a class="work-item" href="#v-events"><img src="video/previewvideo/event.png" alt="Events " loading="lazy" /><span class="work-caption">Events</span></a>
         </div>
-        <p class="help" style="margin-top:30px;">Showreel coming soon — individual clips added as projects are delivered.</p>
+      </div>
+    </section>
+
+    <!--
+      HOW TO ADD A VIDEO: each <div class="video-card ..."> below is one slot.
+        data-url    = paste the YouTube link (youtu.be/..., watch?v=..., shorts/... all work)
+        data-mp4    = OR a path to an mp4 in the repo, e.g. video/files/clip.mp4 (takes priority over data-url)
+        data-title  = optional caption shown on the card
+        data-poster = optional custom cover image path (otherwise the YouTube thumbnail is used)
+      Empty slots show "Add video link" - delete the slots you don't need.
+      Shape: video-card--wide = horizontal 16:9, video-card--tall = vertical 9:16
+             (change the word in BOTH the card class and the video-grid--... class of its section).
+    -->
+
+    <!-- MUSIC VIDEOS (16:9) -->
+    <section id="v-music" class="section series-section reveal-on-scroll">
+      <div class="container">
+        <span class="eyebrow">Motion</span>
+        <h2 class="section-title">Music Videos</h2>
+        <div class="video-grid video-grid--wide">
+          <div class="video-card video-card--wide" data-url="" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--wide" data-url="" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--wide" data-url="" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--wide" data-url="" data-mp4="" data-title="" data-poster=""></div>
+        </div>
+        <a class="series-back-to-top" href="#covers" aria-label="Back to covers">
+          <span class="series-back-to-top-arrow">&uarr;</span>
+          <span class="series-back-to-top-label">Back to Covers</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- REELS (9:16) -->
+    <section id="v-reels" class="section series-section reveal-on-scroll">
+      <div class="container">
+        <span class="eyebrow">Motion</span>
+        <h2 class="section-title">Reels</h2>
+        <div class="video-grid video-grid--tall">
+          <div class="video-card video-card--tall" data-url="https://youtu.be/O7hcvdGv9jM?si=gBqkofpauKx12wyN" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--tall" data-url="https://youtu.be/wdaUn8obJ_o?si=EbqBx2MygWlORmM6" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--tall" data-url="https://youtu.be/YTOijY2-sOo?si=D8MqFwqb3LbXOVPG" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--tall" data-url="https://youtu.be/_1yxS7O4XOc?si=sL95zfB34tvlpEmU" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--tall" data-url="https://youtu.be/ZuqIa5qVwmY?si=DeP5Fmc7TizRGUVR" data-mp4="" data-title="" data-poster=""></div>
+        
+        </div>
+        <a class="series-back-to-top" href="#covers" aria-label="Back to covers">
+          <span class="series-back-to-top-arrow">&uarr;</span>
+          <span class="series-back-to-top-label">Back to Covers</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- EVENTS (16:9) -->
+    <section id="v-events" class="section series-section reveal-on-scroll">
+      <div class="container">
+        <span class="eyebrow">Motion</span>
+        <h2 class="section-title">Events</h2>
+        <div class="video-grid video-grid--wide">
+          <div class="video-card video-card--wide" data-url="https://youtu.be/6l3stINM7KA?si=iI4pckYy3FhKGmPA" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--wide" data-url="" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--wide" data-url="" data-mp4="" data-title="" data-poster=""></div>
+          <div class="video-card video-card--wide" data-url="" data-mp4="" data-title="" data-poster=""></div>
+        </div>
+        <a class="series-back-to-top" href="#covers" aria-label="Back to covers">
+          <span class="series-back-to-top-arrow">&uarr;</span>
+          <span class="series-back-to-top-label">Back to Covers</span>
+        </a>
       </div>
     </section>
   </main>

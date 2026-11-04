@@ -386,3 +386,39 @@ a.work-item { cursor: pointer; }
 
 /* --- Billboard YouTube embed --- */
 .billboard-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+
+/* --- Video cards (video.html) --- */
+.video-grid { display: grid; gap: 2px; background: var(--border); margin-top: 30px; }
+.video-grid--wide { grid-template-columns: repeat(2, 1fr); }
+.video-grid--tall { grid-template-columns: repeat(4, 1fr); }
+.video-card { position: relative; overflow: hidden; background: var(--bg-card); }
+.video-card--wide { aspect-ratio: 16 / 9; }
+.video-card--tall { aspect-ratio: 9 / 16; }
+.video-card-poster { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.video-card:hover .video-card-poster { transform: scale(1.04); }
+.video-card-play {
+  position: absolute; inset: 0; margin: auto; width: 64px; height: 64px; border-radius: 50%;
+  border: 1px solid var(--gold); background: rgba(10,10,10,0.45); color: var(--gold);
+  display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2;
+  transition: all .4s var(--ease); box-shadow: 0 0 30px rgba(201,169,97,0.2);
+}
+.video-card-play:hover { background: var(--gold); color: #0a0a0a; box-shadow: 0 0 50px rgba(201,169,97,0.55); }
+.video-card-title {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 20px; pointer-events: none;
+  background: linear-gradient(0deg, rgba(10,10,10,0.9), transparent);
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text);
+}
+.video-card iframe, .video-card video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+.video-card.is-empty { display: flex; align-items: center; justify-content: center; border: 1px dashed var(--border); }
+.video-card-empty-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); opacity: 0.6; }
+
+@media (max-width: 860px) {
+  .video-grid--wide { grid-template-columns: 1fr; }
+  .video-grid--tall {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .video-grid--tall::-webkit-scrollbar { display: none; }
+  .video-grid--tall .video-card { flex: 0 0 62%; scroll-snap-align: center; }
+}
