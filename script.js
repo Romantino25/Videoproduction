@@ -367,7 +367,18 @@ Description: ${description}`;
       }
 
       const customPoster = (card.dataset.poster || '').trim();
-      const poster = document.createElement('img');
+      let poster;
+      if (mp4 && !customPoster) {
+        // Local mp4 without a custom cover: use its first frame as the cover
+        poster = document.createElement('video');
+        poster.className = 'video-card-poster';
+        poster.muted = true;
+        poster.playsInline = true;
+        poster.preload = 'metadata';
+        poster.setAttribute('aria-hidden', 'true');
+        poster.src = mp4 + '#t=0.1';
+      } else {
+      poster = document.createElement('img');
       poster.className = 'video-card-poster';
       poster.alt = title || 'Video cover';
       poster.loading = 'lazy';
@@ -382,6 +393,7 @@ Description: ${description}`;
         poster.addEventListener('load', function() {
           if (poster.naturalWidth <= 120) poster.src = 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg';
         });
+      }
       }
 
       const playBtn = document.createElement('button');
